@@ -12,12 +12,32 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-env:
-  app_name: app_${{ github.run_number }}
 
 
 jobs:
+  build_matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-12]
+        
+    runs-on: ${{ matrix.os }}
+    env:
+      app_name: app_${{ runner.os }}_${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Print env
+        run: env
+      - name: Build
+        run: g++ hello.cpp -o ${{ env.app_name }}
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with: 
+          name: my-artifact-matrix
+          path: ${{ env.app_name }}
+          # артефакты необязательно хранить всегда 
+          retention-days: 5 
+
+
   build_ubuntu:
     runs-on: ubuntu-latest
     steps:
