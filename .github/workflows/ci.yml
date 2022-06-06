@@ -18,15 +18,13 @@ jobs:
   build_matrix:
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-12]
+        os: [ubuntu-20.04, macos-12, windows-latest]
         
     runs-on: ${{ matrix.os }}
     env:
       app_name: app_${{ matrix.os }}_${{ github.run_number }}
     steps:
       - uses: actions/checkout@v3
-      - name: Print env
-        run: env
       - name: Build
         run: g++ hello.cpp -o ${{ env.app_name }}
       - name: 'Upload Artifact'
@@ -38,37 +36,21 @@ jobs:
           retention-days: 5 
 
 
-  build_ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Print env
-        run: env
-      - name: Build
-        run: g++ hello.cpp -o ${{ env.app_name }}_${{ runner.os }}   
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with: 
-          name: my-artifact
-          path: ${{ env.app_name }}_${{ runner.os }}
-          # артефакты необязательно хранить всегда 
-          retention-days: 5 
-          
-  build_mac_os:
-    runs-on: macos-12 # (смотрим в каталог доступных сборок справа) 
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Build
-        run: g++ hello.cpp -o ${{ env.app_name }}_${{ runner.os }}
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: ${{ env.app_name }}_${{ runner.os }} 
-          retention-days: 5
-    
-        
+#   build_windows:
+#     runs-on: windows-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Build
+#         run cl
+#         # run: g++ hello.cpp -o ${{ env.app_name }}_${{ runner.os }}   
+#       - name: 'Upload Artifact'
+#         uses: actions/upload-artifact@v3
+#         with: 
+#           name: my-artifact
+#           path: ${{ env.app_name }}_${{ runner.os }}
+#           # артефакты необязательно хранить всегда 
+#           retention-days: 5 
+
           
           
       
