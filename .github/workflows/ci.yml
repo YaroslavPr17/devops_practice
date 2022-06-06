@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with: 
           name: my-artifact
-          path: app
+          path: app_ubuntu
           # артефакты необязательно хранить всегда 
           retention-days: 5 
           
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: app
+          path: app_mac
           retention-days: 5
     
         
