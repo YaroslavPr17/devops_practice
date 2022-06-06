@@ -26,12 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build
-        run: g++ hello.cpp -o ${{ env.app_name }}*
+        run: g++ hello.cpp -o ${{ env.app_name }}
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with: 
           name: my-artifact-matrix
-          path: ${{ env.app_name }}
+          path: ${{ env.app_name }}*
           # артефакты необязательно хранить всегда 
           retention-days: 5 
 
