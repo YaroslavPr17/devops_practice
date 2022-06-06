@@ -29,7 +29,7 @@ jobs:
         run: env
 
       - name: Build
-        run: g++ hello.cpp -o app
+        run: g++ hello.cpp -o app_ubuntu
       
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Build
-        run: g++ hello.cpp -o app
+        run: g++ hello.cpp -o app_mac
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
